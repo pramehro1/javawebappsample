@@ -26,8 +26,8 @@ node {
     // login Azure
     withCredentials([azureServicePrincipal('azsrvpricipal')]) {
       bat '''
-        az login --service-principal -u AZURE_CLIENT_ID -p AZURE_CLIENT_SECRET -t d1e4f211-ccb8-4271-b93d-ecd282137fb9
-        az account set -s AZURE_SUBSCRIPTION_ID
+        az login --service-principal -u dc01119c-2746-417e-b41c-3caf289cf397 -p Passw0rd@12345 -t d1e4f211-ccb8-4271-b93d-ecd282137fb9
+        az account set -s c4bf10ac-3a10-401d-aa2a-612f33fd55cb
       '''
     }
     // get publish settings
