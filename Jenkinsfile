@@ -1,8 +1,8 @@
 import groovy.json.JsonSlurper
 
-//def AZURE_CLIENT_ID = params.AZURE_CLIENT_ID = "none"
-//def AZURE_CLIENT_SECRET = params.AZURE_CLIENT_SECRET = "none"
-//def AZURE_TENANT_ID = params.AZURE_TENANT_ID = "none"
+def AZURE_CLIENT_ID = params.AZURE_CLIENT_ID ?: "none"
+def AZURE_CLIENT_SECRET = params.AZURE_CLIENT_SECRET ?: "none"
+def AZURE_TENANT_ID = params.AZURE_TENANT_ID ?: "none"
 
 def getFtpPublishProfile(def publishProfilesJson) {
   def pubProfiles = new JsonSlurper().parseText(publishProfilesJson)
