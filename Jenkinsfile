@@ -17,7 +17,7 @@ node {
   }
   
   stage('build') {
-    bat 'mvn clean package'
+    sh 'mvn clean package'
   }
   
   stage('deploy') {
@@ -25,17 +25,17 @@ node {
     def webAppName = 'DevopsForJava'
     // login Azure
     withCredentials([azureServicePrincipal('azsrvpricipal')]) {
-      bat '''
+      sh '''
         az login --service-principal -u dc01119c-2746-417e-b41c-3caf289cf397 -p Passw0rd@12345 -t d1e4f211-ccb8-4271-b93d-ecd282137fb9
         az account set -s c4bf10ac-3a10-401d-aa2a-612f33fd55cb
       '''
     }
     // get publish settings
-    def pubProfilesJson = bat script: "az webapp deployment list-publishing-profiles -g $resourceGroup -n $webAppName", returnStdout: true
+    def pubProfilesJson = sh script: "az webapp deployment list-publishing-profiles -g $resourceGroup -n $webAppName", returnStdout: true
     def ftpProfile = getFtpPublishProfile pubProfilesJson
     // upload package
-    bat "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u '$ftpProfile.username:$ftpProfile.password'"
+    sh "curl -T target/calculator-1.0.war $ftpProfile.url/webapps/ROOT.war -u '$ftpProfile.username:$ftpProfile.password'"
     // log out
-    bat 'az logout'
+    sh 'az logout'
   }
 }
